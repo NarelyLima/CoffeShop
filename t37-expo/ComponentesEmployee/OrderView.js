@@ -3,16 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import OrderScreen from './OrderScreen';
+import HelpScreen from './HelpScreen';
 
 const Tab = createBottomTabNavigator();
-
-const HelpScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Help Screen</Text>
-    </View>
-  );
-};
 
 const FeedBackScreen = () => {
   return (
