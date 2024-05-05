@@ -27,11 +27,11 @@ const HelpScreen = () => {
       <View style={styles.container}>
       <View style={styles.row}>
         <SquareWithCircle number={1} text="Served" />
-        <SquareWithCircle number={4} text="Not Served" />
+        <SquareWithCircle number={4} text="Served" />
       </View>
       <View style={styles.row}>
         <SquareWithCircle number={2} text="Served" />
-        <SquareWithCircle number={7} text="Not Served" />
+        <SquareWithCircle number={7} text="Served" />
       </View>
     </View>
 
