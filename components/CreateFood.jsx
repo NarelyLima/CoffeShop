@@ -2,16 +2,23 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const OrderPaid = () => {
+const CreateFood = () => {
     return(
         <View >
             <StatusBar style="auto" />
-            <Text style={styles.text1}>Your order has been paid!</Text>
-            <Text style={styles.text2}>Thank you!</Text>
-            <Image source={require('../assets/726949.png')} style={styles.img} />
+            <Text style={styles.text1}>Create new food</Text>
+            <Text style={styles.text1}>Sortiments</Text>
+
             <TouchableOpacity style={styles.but} >
                 <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.butGradient}>
-                    <Text style={styles.but_txt} >See Status Orderx</Text>
+                    <Text style={styles.but_txt} >Add new sortiments</Text>
+                </LinearGradient>
+            </TouchableOpacity>
+
+            <Text style={styles.text2}>Drinks</Text>
+            <TouchableOpacity style={styles.but} >
+                <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.butGradient}>
+                    <Text style={styles.but_txt} >Add new drinks</Text>
                 </LinearGradient>
             </TouchableOpacity>
         </View>
@@ -36,13 +43,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#72401E',
       },
-    img: {
-        position:'relative',
-        width: 300, // Set the width to the desired value
-        height: 300, // Set the height to the desired value
-        alignSelf: 'center',
-        resizeMode: 'center'
-    },
     but:{
         borderRadius: 20,
         position:'relative',
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
     }
 
 });
-export default OrderPaid;
+export default CreateFood;
