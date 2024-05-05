@@ -40,6 +40,7 @@ const Modaltest = ({ onSelect }) => {
                                 </Pressable>
                             )}
                             keyExtractor={(item) => item.id.toString()}
+                            showsVerticalScrollIndicator={false}
                         />
                     </View>
                 </View>

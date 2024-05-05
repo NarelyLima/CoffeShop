@@ -17,11 +17,26 @@ import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import Sidebar from './components/Sidebar';
 import CartEmpty from './components/CartEmpty';
+import CafeLatte from './components/CafeLatte';
+import Cappuccino from './components/Cappuccino';
+import Mocha from './components/Mocha';
+import Americano from './components/Americano';
+import Macchiato from './components/Macchiato';
+import FlatWhite from './components/FlatWhite';
+import Soda from './components/Soda';
+import NaturalJuice from './components/NaturalJuice';
+import Tea from './components/Tea';
+import HotChoco from './components/HotChoco';
+import Milkshake from './components/Milkshake';
+import Pastel from './components/Pastel';
+import Bolo from './components/Bolo';
+import Pao from './components/Pao';
+import Queque from './components/Queque';
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <Menu/>
+      <Queque/>
     </View>
   );
 };
