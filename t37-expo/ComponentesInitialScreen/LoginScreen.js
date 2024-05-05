@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#f2f2f2',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: '#ccc',
   },
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#72401E',
     paddingVertical: 15,
     paddingHorizontal: 100,
-    borderRadius: 5,
+    borderRadius: 12,
   },
   outlinedButtonContainer: {
     paddingVertical: 15,
