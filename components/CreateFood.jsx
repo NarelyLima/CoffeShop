@@ -1,71 +1,108 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const CreateFood = () => {
     return(
-        <View >
+        <View style={styles.container}>
             <StatusBar style="auto" />
-            <Text style={styles.text1}>Create new food</Text>
-            <Text style={styles.text1}>Sortiments</Text>
 
-            <TouchableOpacity style={styles.but} >
-                <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.butGradient}>
-                    <Text style={styles.but_txt} >Add new sortiments</Text>
-                </LinearGradient>
+            
+            <TouchableOpacity style={styles.GoBack}>
+                <Image source={require('../assets/buton.png')} style={styles.image} />
             </TouchableOpacity>
 
-            <Text style={styles.text2}>Drinks</Text>
-            <TouchableOpacity style={styles.but} >
-                <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.butGradient}>
-                    <Text style={styles.but_txt} >Add new drinks</Text>
-                </LinearGradient>
-            </TouchableOpacity>
+            
+            <View style={styles.top}>
+                <Text style={styles.text1}>Create new food</Text>
+            </View>
+            
+            
+            <View style={styles.section}>
+                <Text style={[styles.text, styles.textLeft]}>Sortiments</Text>
+                <TouchableOpacity style={styles.button}>
+                    <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.buttonGradient}>
+                        <Text style={styles.buttonText}>+ Add new sortiments</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
+            </View>
+
+            
+                <Text style={[styles.text, styles.textLeft]}>Drinks</Text>
+                <TouchableOpacity style={styles.button}>
+                    <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.buttonGradient}>
+                        <Text style={styles.buttonText}>+ Add new drinks</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
+
 const styles = StyleSheet.create({
-    text1: {
-        position:'relative',
-      bottom:0,
-      textAlign: 'center',
-      fontSize: 48,
-      lineHeight: 45,
-      fontWeight: 'bold',
-      color: '#72401E',
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: '#DCC3B9', 
     },
-    text2: {
-        position:'relative',
-        top: 30,
-        textAlign: 'center',
-        fontSize: 48,
-        lineHeight: 45,
+    GoBack: {
+        position: 'absolute',
+        bottom: 720,
+        right: 280,
+        transform: [{ rotate: '90deg' }], 
+    },
+    image: {
+        width: 30, 
+        height: 30, 
+    },
+    text1: {
+        marginTop: 100,
+        marginVertical: 60,
+        fontSize: 30, 
         fontWeight: 'bold',
         color: '#72401E',
-      },
-    but:{
-        borderRadius: 20,
-        position:'relative',
-        width:330,
-        height:70,
-        top:90,
-        alignItems:'center',
-        justifyContent:'center'
-
     },
-    butGradient: {
-        flex: 1,
+    section: {
+        marginBottom: 30,
+        alignItems: 'flex-start',
+    },
+    text: {
+        marginBottom: 10,
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#72401E',
+    },
+    textLeft: {
+        marginLeft: 10, 
+    },
+    button: {
+        borderRadius: 20,
+        width: 250,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#72401E',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+    },
+    buttonGradient: {
         borderRadius: 20,
         width: '100%',
+        height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    but_txt: {
-        textAlign: 'center',
-      fontSize: 25,
-      fontWeight: 'bold',
-      color: '#FFFFFF',
+    buttonText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
     }
-
 });
+
 export default CreateFood;
