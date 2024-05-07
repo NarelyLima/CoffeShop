@@ -36,7 +36,7 @@ import Queque from './components/Queque';
 const App = () => {
   return (
     <View style={styles.container}>
-      <Queque/>
+      <Menu/>
     </View>
   );
 };
