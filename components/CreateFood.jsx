@@ -1,23 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const CreateFood = () => {
-    return(
+    return (
         <View style={styles.container}>
             <StatusBar style="auto" />
 
-            
             <TouchableOpacity style={styles.GoBack}>
                 <Image source={require('../assets/buton.png')} style={styles.image} />
             </TouchableOpacity>
 
-            
             <View style={styles.top}>
                 <Text style={styles.text1}>Create new food</Text>
             </View>
-            
-            
+
             <View style={styles.section}>
                 <Text style={[styles.text, styles.textLeft]}>Sortiments</Text>
                 <TouchableOpacity style={styles.button}>
@@ -27,7 +24,7 @@ const CreateFood = () => {
                 </TouchableOpacity>
             </View>
 
-            
+            <View style={styles.section}>
                 <Text style={[styles.text, styles.textLeft]}>Drinks</Text>
                 <TouchableOpacity style={styles.button}>
                     <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.buttonGradient}>
@@ -43,22 +40,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#DCC3B9', 
+        backgroundColor: '#DCC3B9',
     },
     GoBack: {
         position: 'absolute',
         bottom: 720,
         right: 280,
-        transform: [{ rotate: '90deg' }], 
+        transform: [{ rotate: '90deg' }],
     },
     image: {
-        width: 30, 
-        height: 30, 
+        width: 30,
+        height: 30,
     },
     text1: {
         marginTop: 100,
         marginVertical: 60,
-        fontSize: 30, 
+        fontSize: 30,
         fontWeight: 'bold',
         color: '#72401E',
     },
@@ -73,7 +70,7 @@ const styles = StyleSheet.create({
         color: '#72401E',
     },
     textLeft: {
-        marginLeft: 10, 
+        marginLeft: 10,
     },
     button: {
         borderRadius: 20,
@@ -106,3 +103,4 @@ const styles = StyleSheet.create({
 });
 
 export default CreateFood;
+
