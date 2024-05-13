@@ -1,5 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialIcons } from '@expo/vector-icons';
 import Welcome_page from './components/Welcome_page';
 import MethodPayment from './components/MethodPayment';
 import DELIVERED from './components/DELIVERED';
@@ -32,12 +35,13 @@ import Pastel from './components/Pastel';
 import Bolo from './components/Bolo';
 import Pao from './components/Pao';
 import Queque from './components/Queque';
+import EmployeeFlow from './t37-expo/EmployeeFlow';
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Menu/>
-    </View>
+    <NavigationContainer>
+      <EmployeeFlow/>
+    </NavigationContainer>
   );
 };
 
@@ -49,5 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#DCC3B9',
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    height: '100%'
   },
 });
