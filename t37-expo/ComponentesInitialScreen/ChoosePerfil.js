@@ -1,10 +1,18 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-
-const ChoosePerfil = () => {
-  const handleButtonPress = (buttonText) => {
-    // Lógica para o que acontece quando um botão é pressionado
-    alert(`Você pressionou o botão "${buttonText}"`);
+import RegisterScreen from './RegisterScreen';
+import Menu from '../../components/Menu';
+const ChoosePerfil = ({navigation}) => {
+  const signUpView = () => {
+    navigation.navigate('RegisterScreen');
+  };
+  const loginView = () => {
+    navigation.navigate('LoginScreen');
+  };
+  const withoutAccountView = () => {
+    navigation.navigate('Menu');
   };
 
   return (
@@ -13,16 +21,15 @@ const ChoosePerfil = () => {
         style={styles.image}
         source={require('/Users/narelylima/Documents/DM Aulas/FinalProject/t37/t37-expo/assets/CafeLogin.png')}
       />
-      
       <View>
         <Text style={styles.headerText}>You are new to our cafe?</Text>
-        <TouchableOpacity style={styles.button} onPress={() => handleButtonPress('Botão 1')}>
+        <TouchableOpacity style={styles.button} onPress={signUpView}>
           <Text style={styles.buttonText}>Sign up now!</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => handleButtonPress('Botão 2')}>
+        <TouchableOpacity style={styles.button} onPress={loginView}>
           <Text style={styles.buttonText}>I already own an account</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.whiteButton]} onPress={() => handleButtonPress('Botão 3')}>
+        <TouchableOpacity style={[styles.button, styles.whiteButton]} onPress={withoutAccountView}>
           <Text style={[styles.buttonText, styles.whiteButtonText]}>Order without an account</Text>
         </TouchableOpacity>
       </View>

@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from 'react-native';
-
-const InitialScreen = () => {
+const InitialScreen = ({navigation}) => {
   const handleGetStarted = () => {
     // Lógica para o que acontece quando o botão é clicado
-    alert('Vamos começar!');
+    navigation.navigate('PerfilScreen');
   };
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -58,5 +57,6 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   }
 });
+
 
 export default InitialScreen;

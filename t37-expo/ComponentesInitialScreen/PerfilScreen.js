@@ -1,27 +1,34 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const PerfilScreen = () => {
-  const handleButtonPress = (buttonText) => {
-    // Lógica para o que acontece quando um botão é pressionado
-    alert(`Você pressionou o botão "${buttonText}"`);
+const PerfilScreen = ({navigation}) => {
+  const customerFlow = () => {
+    navigation.navigate('ChoosePerfil');
+  };
+  const employeeFlow = () => {
+    navigation.navigate('ChoosePerfil');
+  };
+  const administratorFlow = () => {
+    navigation.navigate('PerfilScreen');
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.headerText}>You are:</Text>
+     <View style={styles.container}>
+     <Text style={styles.headerText}>You are:</Text>
       <View>
-        <TouchableOpacity style={styles.button} onPress={() => handleButtonPress('Botão 1')}>
+        <TouchableOpacity style={styles.button} onPress={customerFlow}>
           <Text style={styles.buttonText}>Customer</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => handleButtonPress('Botão 2')}>
+        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={employeeFlow}>
           <Text style={styles.buttonText}>Employee</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => handleButtonPress('Botão 3')}>
+        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={administratorFlow}>
           <Text style={styles.buttonText}>Administrator</Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </View>
   );
 };
 

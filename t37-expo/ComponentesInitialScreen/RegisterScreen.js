@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button, Image } from 'react-native';
-
-const RegisterScreen = () => {
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+const RegisterScreen = ({navigation}) => {
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
   const [text3, setText3] = useState('');
 
-  const handleButtonPress = () => {
-    // Lógica para o que acontece quando o botão é pressionado
-    alert(`Texto 1: ${text1}\nTexto 2: ${text2}\nTexto 3: ${text3}`);
+  const signUpButton = () => {
+    navigation.navigate('Menu');  
   };
 
   return (
@@ -46,7 +46,7 @@ const RegisterScreen = () => {
           />
         </View>
       </View>
-      <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => handleButtonPress('Botão 3')}>
+      <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={signUpButton}>
           <Text style={styles.buttonText}>Sign up</Text>
         </TouchableOpacity>
     </View>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: 'white',
-    width: 300,
+    width: 350,
   },
   button: {
     backgroundColor: '#72401E',

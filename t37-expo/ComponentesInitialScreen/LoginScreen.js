@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Menu from '../../components/Menu';
+import RegisterScreen from './RegisterScreen';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
 
-  const handleButtonPress = () => {
-    alert(`Texto 1: ${text1}\nTexto 2: ${text2}`);
+  const loginButton = () => {
+    navigation.navigate('Menu');
+  };
+  const registerButton = () => {
+    navigation.navigate('RegisterScreen');
   };
 
   return (
@@ -31,10 +38,10 @@ const LoginScreen = () => {
           placeholder="Enter your password"
         />
       </View>
-      <TouchableOpacity style={styles.buttonContainer} onPress={handleButtonPress}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={loginButton}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.outlinedButtonContainer} onPress={handleButtonPress}>
+      <TouchableOpacity style={styles.outlinedButtonContainer} onPress={registerButton}>
         <Text style={styles.label}>Don't have an account? Sign up
 </Text>
       </TouchableOpacity>
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#ccc',
-    width: 300,
+    width: 350,
   },
   buttonContainer: {
     backgroundColor: '#72401E',
