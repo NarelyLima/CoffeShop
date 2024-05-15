@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button, Image } from 'react-native';
-
-const RegisterScreen = () => {
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+const RegisterScreen = ({navigation, route}) => {
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
   const [text3, setText3] = useState('');
 
-  const handleButtonPress = () => {
-    // Lógica para o que acontece quando o botão é pressionado
-    alert(`Texto 1: ${text1}\nTexto 2: ${text2}\nTexto 3: ${text3}`);
+  const { data } = route.params;
+
+  const signUpButton = (dataPreview) => {
+    if (dataPreview === 'Customer') {
+      navigation.navigate('Menu');  
+    } else if (dataPreview === 'Employee') {
+      navigation.navigate('EmployeeFlow'); 
+    } else if (dataPreview === 'Administrator') {
+      navigation.navigate('EmployeeFlow'); 
+    } 
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Photo</Text>
       <TouchableOpacity style={styles.roundButton}>
-        <Image source={require('/Users/narelylima/Documents/DM Aulas/FinalProject/t37/t37-expo/assets/CafePicker.png')} style={styles.buttonImage} />
+        <Image source={require('../assets/CafePicker.png')} style={styles.buttonImage} />
       </TouchableOpacity>
       <View style={styles.inputContainer}>
         <View style={styles.inputGroup}>
@@ -46,7 +54,7 @@ const RegisterScreen = () => {
           />
         </View>
       </View>
-      <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => handleButtonPress('Botão 3')}>
+      <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => signUpButton(data)}>
           <Text style={styles.buttonText}>Sign up</Text>
         </TouchableOpacity>
     </View>
@@ -58,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#E5DBD7',
+    backgroundColor: '#DCC3B9',
     paddingHorizontal: 20,
     width: '100%', 
     height: '100%',
@@ -85,6 +93,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     marginBottom: 20,
+    alignSelf: 'stretch',
   },
   inputGroup: {
     marginBottom: 10,
@@ -99,6 +108,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: 'white',
+    width: 350,
   },
   button: {
     backgroundColor: '#72401E',

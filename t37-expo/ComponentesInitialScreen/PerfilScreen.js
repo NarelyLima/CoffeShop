@@ -1,27 +1,34 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const PerfilScreen = () => {
-  const handleButtonPress = (buttonText) => {
-    // Lógica para o que acontece quando um botão é pressionado
-    alert(`Você pressionou o botão "${buttonText}"`);
+const PerfilScreen = ({navigation}) => {
+  const customerFlow = (inputData) => {
+    navigation.navigate('ChoosePerfil', { data: inputData });
+  };
+  const employeeFlow = (inputData) => {
+    navigation.navigate('ChoosePerfil', { data: inputData });
+  };
+  const administratorFlow = (inputData) => {
+    navigation.navigate('PerfilScreen', { data: inputData });
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.headerText}>You are:</Text>
+     <View style={styles.container}>
+     <Text style={styles.headerText}>You are:</Text>
       <View>
-        <TouchableOpacity style={styles.button} onPress={() => handleButtonPress('Botão 1')}>
+        <TouchableOpacity style={styles.button} onPress={() => customerFlow('Customer')}>
           <Text style={styles.buttonText}>Customer</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => handleButtonPress('Botão 2')}>
+        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => customerFlow('Employee')}>
           <Text style={styles.buttonText}>Employee</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => handleButtonPress('Botão 3')}>
+        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => customerFlow('Administrator')}>
           <Text style={styles.buttonText}>Administrator</Text>
         </TouchableOpacity>
       </View>
-    </View>
+      </View>
   );
 };
 
@@ -30,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#E5DBD7',
+    backgroundColor: '#DCC3B9',
     width: '100%', 
     height: '100%',
   },

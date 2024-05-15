@@ -48,7 +48,7 @@ const Americano = ({ menuItems }) => {
         <View style={styles.container}>
             <Image style={styles.bgImg} source={require('../assets/americano2.png')} />
             <TouchableOpacity style={styles.GoBack}>
-                <Image source={require('../assets/chevron.backward.circle.fill.png')} />
+                <Image source={'../assets/chevron.backward.circle.fill.png'} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.love} onPress={toggleLike}>
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />

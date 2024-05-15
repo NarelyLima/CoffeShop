@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground, Text, TouchableOpacity, Dimensions } from 'react-native';
-
-const InitialScreen = () => {
+const InitialScreen = ({navigation}) => {
   const handleGetStarted = () => {
     // Lógica para o que acontece quando o botão é clicado
-    alert('Vamos começar!');
+    navigation.navigate('PerfilScreen');
   };
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -12,7 +11,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('/Users/narelylima/Documents/DM Aulas/FinalProject/t37/t37-expo/assets/CafeInitialScreen.png')} // Caminho para a imagem no diretório 'assets'
+        source={require('../assets/CafeInitialScreen.png')} // Caminho para a imagem no diretório 'assets'
         style={[styles.backgroundImage, { width: screenWidth }]}
       >
        
@@ -58,5 +57,6 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   }
 });
+
 
 export default InitialScreen;
