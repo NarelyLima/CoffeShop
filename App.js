@@ -8,7 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Welcome_page from './components/Welcome_page';
 import MethodPayment from './components/MethodPayment';
 import DELIVERED from './components/DELIVERED';
-import OrderPaid from './components/OrderPaid';
+import CreateFood from './components/CreateFood';
 import PENDING from './components/PENDING';
 import Feedback from './components/Feedback';
 import LongEspresso from './components/LongEspresso';
