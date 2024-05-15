@@ -12,16 +12,3 @@ export default function EmployeeFlow() {
     <OrderView/>
   );
 }
-
-// <NavigationContainer>
-//<OrderView/>
-//</NavigationContainer>
-
-// <View style={styles.container}>
-//     {/* <InitialScreen/> */}
-//      {/* <PerfilScreen/> */}
-//      {/* <ChoosePerfil/> */}
-//    {/* <RegisterScreen/> */}
-//     {/* <LoginScreen/> */}     
-//   <StatusBar style="auto" />
-// </View>

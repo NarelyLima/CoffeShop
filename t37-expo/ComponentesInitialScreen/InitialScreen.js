@@ -11,7 +11,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('/Users/narelylima/Documents/DM Aulas/FinalProject/t37/t37-expo/assets/CafeInitialScreen.png')} // Caminho para a imagem no diretório 'assets'
+        source={require('../assets/CafeInitialScreen.png')} // Caminho para a imagem no diretório 'assets'
         style={[styles.backgroundImage, { width: screenWidth }]}
       >
        

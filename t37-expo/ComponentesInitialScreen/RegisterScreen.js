@@ -2,20 +2,28 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-const RegisterScreen = ({navigation}) => {
+const RegisterScreen = ({navigation, route}) => {
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
   const [text3, setText3] = useState('');
 
-  const signUpButton = () => {
-    navigation.navigate('Menu');  
+  const { data } = route.params;
+
+  const signUpButton = (dataPreview) => {
+    if (dataPreview === 'Customer') {
+      navigation.navigate('Menu');  
+    } else if (dataPreview === 'Employee') {
+      navigation.navigate('EmployeeFlow'); 
+    } else if (dataPreview === 'Administrator') {
+      navigation.navigate('EmployeeFlow'); 
+    } 
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Photo</Text>
       <TouchableOpacity style={styles.roundButton}>
-        <Image source={require('/Users/narelylima/Documents/DM Aulas/FinalProject/t37/t37-expo/assets/CafePicker.png')} style={styles.buttonImage} />
+        <Image source={require('../assets/CafePicker.png')} style={styles.buttonImage} />
       </TouchableOpacity>
       <View style={styles.inputContainer}>
         <View style={styles.inputGroup}>
@@ -46,7 +54,7 @@ const RegisterScreen = ({navigation}) => {
           />
         </View>
       </View>
-      <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={signUpButton}>
+      <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => signUpButton(data)}>
           <Text style={styles.buttonText}>Sign up</Text>
         </TouchableOpacity>
     </View>

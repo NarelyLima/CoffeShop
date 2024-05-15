@@ -56,6 +56,7 @@ const App = () => {
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }}/>
+        <Stack.Screen name="EmployeeFlow" component={EmployeeFlow} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
