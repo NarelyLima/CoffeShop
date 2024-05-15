@@ -23,6 +23,7 @@ const Menu = () => {
     { id: '4', name: 'Hot Choco', price: '$4.00', image: require('../assets/mocha.png') },
     { id: '5', name: 'Milk Shakes', price: '$4.50', image: require('../assets/milkshake.png') },
   ];
+  
   const pastry = [
     { id: '1', name: 'Pastel de Nata', price: '$1.50', image: require('../assets/pastel.png') },
     { id: '2', name: 'Bolo de Arroz', price: '$2.00', image: require('../assets/arroz.png') },
