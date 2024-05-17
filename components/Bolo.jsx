@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { pastry } from './data';
 
 
 const Bolo = ({ menuItems }) => {
@@ -54,8 +55,8 @@ const Bolo = ({ menuItems }) => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
-                <Text style={styles.es_txt}>Bolo de Arroz</Text>
-                <Text style={styles.price}>€2.00</Text>
+                <Text style={styles.es_txt}>{pastry[1].name}</Text>
+                <Text style={styles.price}>{pastry[1].price}</Text>
                 <View style={styles.milkBg}>
                     <Text style={styles.milk}>Takeaway</Text>
                     <Switch

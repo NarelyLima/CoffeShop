@@ -2,23 +2,57 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
+import * as ImagePicker from 'expo-image-picker';
 
 const EditProfile = () => {
-    const [name, setName] = useState(''); // State for name
-    const [surname, setSurname] = useState(''); // State for surname
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [selectedImage, setSelectedImage] = useState(null);
+    
+   
+    
+    const handleAddPhoto = async () => {
+        const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        console.log("Permission result:", permissionResult);
+        
+        if (permissionResult.granted === false) {
+            alert("Permission to access camera roll is required!");
+            return;
+        }
+        
+        const pickerResult = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        });
+        console.log("Picker result:", pickerResult);
+    
+        if (!pickerResult.cancelled) {
+            setSelectedImage(pickerResult.uri);
+        }
+        if (!pickerResult.cancelled && pickerResult.assets.length > 0) {
+            setSelectedImage(pickerResult.assets[0].uri);
+        }
+    };
+    
 
-    const userText = name + ' ' + surname; // Concatenated name and surname
+    const userText = name + ' ' + surname;
 
     return (
         <View style={styles.container}>
             <StatusBar style="auto" />
             <View style={styles.banner}>
                 <LinearGradient colors={['#894D25', '#DCC3B9']} start={[0, 0]} end={[0, 1]} style={styles.gradient1}>
-                    <LinearGradient colors={['#DCC3B9', '#894D25']} start={[0, 0]} end={[0, 1]} style={styles.profile}>
-                        <TouchableOpacity>
-                            <Text style={styles.add}>Add Photo</Text>
-                        </TouchableOpacity>
-                    </LinearGradient>
+                    <View style={styles.profile}>
+                        {selectedImage ? (
+                            <Image source={{ uri: selectedImage }} style={styles.profileImage} />
+                        ) : (
+                            <TouchableOpacity onPress={handleAddPhoto}>
+                                <Text style={styles.add}>Add Photo</Text>
+                            </TouchableOpacity>
+                        )}
+                    </View>
                 </LinearGradient>
             </View>
             <Text style={styles.userName}>{userText || 'Your Name'}</Text>
@@ -66,12 +100,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    profileImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 61.5,
+    },
     GoBack: {
         position: 'absolute',
         width: 30,
         height: 30,
         top: 45,
-        right: 150
+        left: 15
     },
     userName: {
         position: 'absolute',
@@ -123,12 +162,12 @@ const styles = StyleSheet.create({
     },
     but2: {
         borderRadius: 20,
-        position:'absolute',
-        width:330,
-        height:70,
-        bottom:50,
-        alignItems:'center',
-        justifyContent:'center'
+        position: 'absolute',
+        width: 330,
+        height: 70,
+        bottom: 50,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     butGradient: {
         flex: 1,
@@ -139,9 +178,9 @@ const styles = StyleSheet.create({
     },
     but_txt: {
         textAlign: 'center',
-      fontSize: 25,
-      fontWeight: 'bold',
-      color: '#FFFFFF',
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: '#FFFFFF',
     }
 });
 

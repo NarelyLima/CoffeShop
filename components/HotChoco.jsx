@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import ModalHotChoco from './ModalHotChoco';
+import { drinks } from './data';
 
 const HotChoco = ({ menuItems }) => {
     const [isLiked, setIsLiked] = useState(true); // State to track like status
@@ -54,10 +55,10 @@ const HotChoco = ({ menuItems }) => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
-                <Text style={styles.es_txt}>Hot Choco</Text>
-                <Text style={styles.price}>€4.00</Text>
+                <Text style={styles.es_txt}>{drinks[3].name}</Text>
+                <Text style={styles.price}>{drinks[3].price}</Text>
                 <View style={styles.milkBg}>
-                    <Text style={styles.milk}>Grade</Text>
+                    <Text style={styles.milk}>Takeaway</Text>
                     <Switch
                         style={styles.swc}
                         trackColor={{ false: "#FFFFFF", true: "#00830D" }}

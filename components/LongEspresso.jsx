@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInp
 import { LinearGradient } from 'expo-linear-gradient';
 import Modaltest from './Modaltest';
 import Menu from './Menu';
+import { coffees } from './data';
 
 const LongEspresso = ({ menuItems }) => {
     const [isLiked, setIsLiked] = useState(true); // State to track like status
@@ -55,10 +56,10 @@ const LongEspresso = ({ menuItems }) => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
-                <Text style={styles.es_txt}>Long Espresso</Text>
-                <Text style={styles.price}>€2.50</Text>
+                <Text style={styles.es_txt}>{coffees[0].name}</Text>
+                <Text style={styles.price}>{coffees[0].price}</Text>
                 <View style={styles.milkBg}>
-                    <Text style={styles.milk}>Milk</Text>
+                    <Text style={styles.milk}>Caffeine</Text>
                     <Switch
                         style={styles.swc}
                         trackColor={{ false: "#FFFFFF", true: "#00830D" }}

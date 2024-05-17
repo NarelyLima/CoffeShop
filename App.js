@@ -36,7 +36,7 @@ import Queque from './components/Queque';
 const App = () => {
   return (
     <View style={styles.container}>
-      <Menu/>
+      <Tea/>
     </View>
   );
 };
@@ -46,8 +46,5 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#DCC3B9',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  }
 });

@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Modaltest from './Modaltest';
+import { coffees } from './data'; // Importing data from data.js
 
-const Americano = ({ menuItems }) => {
+const Americano = () => {
     const [isLiked, setIsLiked] = useState(true); // State to track like status
     const [isEnabled, setIsEnabled] = useState(false); // State for milk switch
     const [text, setText] = useState(''); // State for observation text
@@ -54,8 +55,8 @@ const Americano = ({ menuItems }) => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
-                <Text style={styles.es_txt}>Americano</Text>
-                <Text style={styles.price}>€2.50</Text>
+                <Text style={styles.es_txt}>{coffees[4].name}</Text>
+                <Text style={styles.price}>{coffees[4].price}</Text>
                 <View style={styles.milkBg}>
                     <Text style={styles.milk}>Caffeine</Text>
                     <Switch
