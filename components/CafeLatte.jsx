@@ -1,35 +1,71 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Modaltest from './Modaltest';
+import { doc, getDoc, updateDoc } from 'firebase/firestore'; // Import Firestore functions
+import { db } from '../firebase.config'; // Import Firestore db instance
+import { useNavigation } from '@react-navigation/native';
 
-const CafeLatte = ({ menuItems }) => {
+const CafeLatte = () => {
     const [isLiked, setIsLiked] = useState(true); // State to track like status
     const [isEnabled, setIsEnabled] = useState(false); // State for milk switch
     const [text, setText] = useState(''); // State for observation text
     const [quantity, setQuantity] = useState(1); // State for quantity
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedMilk, setSelectedMilk] = useState(null);
+    const [coffeeData, setCoffeeData] = useState(null); // State to store coffee data
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        // Fetch "CafeLatte" coffee data from Firestore
+        const fetchCaffeLatteData = async () => {
+            try {
+                const docRef = doc(db, 'coffees', '2'); // Assuming '2' is the document ID for the "CafeLatte" coffee
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    setCoffeeData(docSnap.data());
+                } else {
+                    console.log('No such document!');
+                }
+            } catch (error) {
+                console.error('Error fetching document:', error);
+            }
+        };
+
+        fetchCaffeLatteData(); // Call the function to fetch data
+    }, []);
 
     const handleSelectMilk = (milk) => {
         setSelectedMilk(milk);
     };
+    
 
     const toggleLike = () => {
         setIsLiked(!isLiked); // Toggle like status
     };
 
-    const toggleSwitch = () => {
-        // Toggle milk switch
-        setIsEnabled(previousState => {
-            if (previousState === undefined) {
-                // If previousState is undefined, assume it's false
-                return false;
+    const toggleSwitch = async () => {
+        try {
+            // Toggle milk switch
+            setIsEnabled(previousState => {
+                if (previousState === undefined) {
+                    // If previousState is undefined, assume it's false
+                    return false;
+                }
+                return !previousState;
+            });
+
+            // Update the corresponding document in Firestore
+            const docRef = doc(db, 'coffees', '2'); // Assuming '5' is the document ID for the "Americano" coffee
+            await updateDoc(docRef, {
+                milk: !isEnabled // Update the milkEnabled field to the new value
+            });
+
+            if (!isEnabled) {
+                setModalVisible(false); // Close the modal if the switch is turned off
             }
-            return !previousState;
-        });
-        if (!isEnabled) {
-            setModalVisible(false); // Close the modal if the switch is turned off
+        } catch (error) {
+            console.error('Error updating document:', error);
         }
     };
 
@@ -42,22 +78,29 @@ const CafeLatte = ({ menuItems }) => {
             setQuantity(prevQuantity => prevQuantity - 1); // Decrement quantity if greater than 1
         }
     };
-    
+
+    if (!coffeeData) {
+        return (
+            <View style={{flex:1, backgroundColor:'#fff', justifyContent:'center', alignItems:'center'}}>
+        <Image source={{ uri: 'https://64.media.tumblr.com/515bfedfa408cfe6e84ad4e35945f0bd/tumblr_mmgb7h5NXD1qg6rkio1_500.gifv' }} style={{ width: '100%',height: '100%',resizeMode: 'contain',zIndex: 999 }} />
+      </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
             <Image style={styles.bgImg} source={require('../assets/caffe-latte2.png')} />
-            <TouchableOpacity style={styles.GoBack}>
+            <TouchableOpacity style={styles.GoBack} onPress={() => navigation.goBack()}>
                 <Image source={require('../assets/chevron.backward.circle.fill.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.love} onPress={toggleLike}>
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
-                <Text style={styles.es_txt}>Caffe Latte</Text>
-                <Text style={styles.price}>€3.50</Text>
+                <Text style={styles.es_txt}>{coffeeData.name}</Text>
+                <Text style={styles.price}>{coffeeData.price}$</Text>
                 <View style={styles.milkBg}>
-                    <Text style={styles.milk}>Caffeine</Text>
+                    <Text style={styles.milk}>Milk</Text>
                     <Switch
                         style={styles.swc}
                         trackColor={{ false: "#FFFFFF", true: "#00830D" }}
@@ -102,7 +145,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         width: 375, // Sample width
         height: 400, // Sample height
-        bottom: 230,
+        bottom: 210,
         right: 0
     },
     menu: {

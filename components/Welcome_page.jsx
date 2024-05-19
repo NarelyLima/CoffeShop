@@ -1,12 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image,TouchableOpacity,} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import Menu from './Menu';
 
 const Welcome_page = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.text}>You must first read the QR-Code that identifies the table you are at.</Text>
       <StatusBar style="auto" />
-      <TouchableOpacity style={styles.QR}>
+      <TouchableOpacity style={styles.QR} onPress={() => navigation.navigate('Menu')}>
         <Image source={require('../assets/camera.viewfinder.png')}
         style={styles.QR_img} />
       </TouchableOpacity>
