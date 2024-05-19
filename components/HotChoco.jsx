@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-<<<<<<< HEAD
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase.config'; // Assuming you have configured Firebase in firebase.config
 import ModalHotChoco from '../components/ModalHotChoco'
@@ -11,16 +10,6 @@ const HotChoco = () => {
     const [isEnabled, setIsEnabled] = useState(false);
     const [text, setText] = useState('');
     const [quantity, setQuantity] = useState(1);
-=======
-import ModalHotChoco from './ModalHotChoco';
-import { drinks } from './data';
-
-const HotChoco = ({ menuItems }) => {
-    const [isLiked, setIsLiked] = useState(true); // State to track like status
-    const [isEnabled, setIsEnabled] = useState(false); // State for milk switch
-    const [text, setText] = useState(''); // State for observation text
-    const [quantity, setQuantity] = useState(1); // State for quantity
->>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedMilk, setSelectedMilk] = useState(null);
     const [drinkData, setDrinkData] = useState(null);
@@ -97,13 +86,8 @@ const HotChoco = ({ menuItems }) => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
-<<<<<<< HEAD
                 <Text style={styles.es_txt}>{drinkData.name}</Text>
                 <Text style={styles.price}>{drinkData.price}$</Text>
-=======
-                <Text style={styles.es_txt}>{drinks[3].name}</Text>
-                <Text style={styles.price}>{drinks[3].price}</Text>
->>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
                 <View style={styles.milkBg}>
                     <Text style={styles.milk}>Takeaway</Text>
                     <Switch

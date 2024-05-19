@@ -12,7 +12,6 @@ import Sidebar from './Sidebar';
 import { menuItems, drinks, pastry } from './data'; // Importing data from data.js
 
 const Menu = () => {
-<<<<<<< HEAD
   const navigation = useNavigation();
   const [coffeesData, setCoffeesData] = useState([]);
   const [drinksData, setDrinksData] = useState([]);
@@ -115,19 +114,6 @@ const Menu = () => {
       </View>
     );
   }
-=======
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item}>
-      <View style={styles.maro}>
-        <Image source={item.image} style={styles.imagine} />
-      </View>
-      <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.price}>{item.price}</Text>
-    </TouchableOpacity>
-  );
-
-  const [text, setText] = useState('');
->>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
 
   return (
     <View style={styles.container}>
