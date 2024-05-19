@@ -5,15 +5,21 @@ import Menu from '../../components/Menu';
 import RegisterScreen from './RegisterScreen';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation, route }) => {
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
-
-  const loginButton = () => {
-    navigation.navigate('Menu');
+  const { data } = route.params;
+  const loginButton = (dataPreview) => {
+    if (dataPreview === 'Customer') {
+      navigation.navigate('Menu');  
+    } else if (dataPreview === 'Employee') {
+      navigation.navigate('EmployeeFlow'); 
+    } else if (dataPreview === 'Administrator') {
+      navigation.navigate('MenuView'); 
+    } 
   };
-  const registerButton = () => {
-    navigation.navigate('RegisterScreen');
+  const registerButton = (dataPreview) => {
+    navigation.navigate('RegisterScreen', {data: dataPreview});
   };
 
   return (
@@ -38,10 +44,10 @@ const LoginScreen = ({navigation}) => {
           placeholder="Enter your password"
         />
       </View>
-      <TouchableOpacity style={styles.buttonContainer} onPress={loginButton}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => loginButton(data)}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.outlinedButtonContainer} onPress={registerButton}>
+      <TouchableOpacity style={styles.outlinedButtonContainer} onPress={() => registerButton(data)}>
         <Text style={styles.label}>Don't have an account? Sign up
 </Text>
       </TouchableOpacity>
