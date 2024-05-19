@@ -15,7 +15,7 @@ const RegisterScreen = ({navigation, route}) => {
     } else if (dataPreview === 'Employee') {
       navigation.navigate('EmployeeFlow'); 
     } else if (dataPreview === 'Administrator') {
-      navigation.navigate('EmployeeFlow'); 
+      navigation.navigate('MenuView'); 
     } 
   };
 

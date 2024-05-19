@@ -2,6 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import MenuView from '../../Administrator/AdministratorFlow';
 
 const PerfilScreen = ({navigation}) => {
   const customerFlow = (inputData) => {
@@ -11,7 +12,7 @@ const PerfilScreen = ({navigation}) => {
     navigation.navigate('ChoosePerfil', { data: inputData });
   };
   const administratorFlow = (inputData) => {
-    navigation.navigate('PerfilScreen', { data: inputData });
+    navigation.navigate('ChoosePerfil', { data: inputData });
   };
 
   return (
@@ -21,10 +22,10 @@ const PerfilScreen = ({navigation}) => {
         <TouchableOpacity style={styles.button} onPress={() => customerFlow('Customer')}>
           <Text style={styles.buttonText}>Customer</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => customerFlow('Employee')}>
+        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => employeeFlow('Employee')}>
           <Text style={styles.buttonText}>Employee</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => customerFlow('Administrator')}>
+        <TouchableOpacity style={[styles.button, styles.buttonMargin]} onPress={() => administratorFlow('Administrator')}>
           <Text style={styles.buttonText}>Administrator</Text>
         </TouchableOpacity>
       </View>

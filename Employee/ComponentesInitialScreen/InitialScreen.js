@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
   content: {
     alignItems: 'center',
     marginBottom: 40,
-
   },
   getStartedButton: { 
     backgroundColor: '#6A3A1A',

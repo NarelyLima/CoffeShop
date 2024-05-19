@@ -7,9 +7,15 @@ import Menu from '../../components/Menu';
 const ChoosePerfil = ({navigation, route}) => {
 
   const signUpView = (dataPreview) => {
-    navigation.navigate('RegisterScreen', { data: dataPreview });
+    if (dataPreview === 'Customer') {
+      navigation.navigate('RegisterScreen', { data: dataPreview }); 
+    } else if (dataPreview === 'Employee') {
+      navigation.navigate('RegisterScreen', { data: dataPreview });
+    } else if (dataPreview === 'Administrator') {
+      navigation.navigate('SettingsLogin', { data: dataPreview }); 
+    } 
   };
-  const loginView = () => {
+  const loginView = (dataPreview) => {
     navigation.navigate('LoginScreen', { data: dataPreview });
   };
   const withoutAccountView = () => {

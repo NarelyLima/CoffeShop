@@ -37,13 +37,16 @@ import Pastel from './components/Pastel';
 import Bolo from './components/Bolo';
 import Pao from './components/Pao';
 import Queque from './components/Queque';
-import EmployeeFlow from './t37-expo/EmployeeFlow';
-import InitialScreen from './t37-expo/ComponentesInitialScreen/InitialScreen';
-import PerfilScreen from './t37-expo/ComponentesInitialScreen/PerfilScreen';
-import ChoosePerfil from './t37-expo/ComponentesInitialScreen/ChoosePerfil';
-import LoginScreen from './t37-expo/ComponentesInitialScreen/LoginScreen';
-import RegisterScreen from './t37-expo/ComponentesInitialScreen/RegisterScreen';
-
+import EmployeeFlow from './Employee/EmployeeFlow';
+import InitialScreen from './Employee/ComponentesInitialScreen/InitialScreen';
+import PerfilScreen from './Employee/ComponentesInitialScreen/PerfilScreen';
+import ChoosePerfil from './Employee/ComponentesInitialScreen/ChoosePerfil';
+import LoginScreen from './Employee/ComponentesInitialScreen/LoginScreen';
+import RegisterScreen from './Employee/ComponentesInitialScreen/RegisterScreen';
+import AdministratorFlow from './Administrator/AdministratorFlow';
+import CreateItemMenu from './Administrator/MenuFlow/CreateItemMenu';
+import SettingsLogin from './Administrator/SettingsFlow/SettingsLogin';
+import SettingsEdit from './Administrator/SettingsFlow/SettingsEdit';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -57,7 +60,11 @@ const App = () => {
         <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }}/>
         <Stack.Screen name="EmployeeFlow" component={EmployeeFlow} options={{ headerShown: false }}/>
-      </Stack.Navigator>
+        <Stack.Screen name="AdministratorFlow" component={AdministratorFlow} options={{ headerShown: false }}/>
+        <Stack.Screen name="CreateItemMenu" component={CreateItemMenu} />
+        <Stack.Screen name="SettingsLogin" component={SettingsLogin} />
+        <Stack.Screen name="SettingsEdit" component={SettingsEdit} />
+     </Stack.Navigator>
     </NavigationContainer>
   );
 };
