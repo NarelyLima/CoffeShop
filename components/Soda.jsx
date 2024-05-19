@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+<<<<<<< HEAD
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase.config'; // Assuming you have configured Firebase in firebase.config
 import ModalSoda from '../components/ModalSoda'
 import { useNavigation } from '@react-navigation/native';
+=======
+import ModalSoda from './ModalSoda';
+import { drinks } from './data';
+>>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
 
 const Soda = () => {
     const [isLiked, setIsLiked] = useState(true);
@@ -86,8 +91,13 @@ const Soda = () => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
+<<<<<<< HEAD
                 <Text style={styles.es_txt}>{drinkData.name}</Text>
                 <Text style={styles.price}>{drinkData.price}$</Text>
+=======
+                <Text style={styles.es_txt}>{drinks[0].name}</Text>
+                <Text style={styles.price}>{drinks[0].price}</Text>
+>>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
                 <View style={styles.milkBg}>
                     <Text style={styles.milk}>Takeaway</Text>
                     <Switch

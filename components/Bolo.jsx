@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+<<<<<<< HEAD
 import { doc, getDoc, updateDoc } from 'firebase/firestore'; // Import Firestore functions
 import { db } from '../firebase.config'; // Import Firestore db instance
 import { useNavigation } from '@react-navigation/native';
+=======
+import { pastry } from './data';
+>>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
 
 const Bolo = () => {
     const [isLiked, setIsLiked] = useState(true); // State to track like status
@@ -88,8 +92,13 @@ const Bolo = () => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
+<<<<<<< HEAD
                 <Text style={styles.es_txt}>{pastryData.name}</Text>
                 <Text style={styles.price}>{pastryData.price}$</Text>
+=======
+                <Text style={styles.es_txt}>{pastry[1].name}</Text>
+                <Text style={styles.price}>{pastry[1].price}</Text>
+>>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
                 <View style={styles.milkBg}>
                     <Text style={styles.milk}>Takeaway</Text>
                     <Switch

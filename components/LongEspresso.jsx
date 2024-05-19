@@ -6,7 +6,10 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase.config'; 
 import Menu from './Menu';
 import { coffees } from './data';
+<<<<<<< HEAD
 import { useNavigation } from '@react-navigation/native';
+=======
+>>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
 
 const LongEspresso = () => {
     const [isLiked, setIsLiked] = useState(true); // State to track like status
@@ -100,10 +103,15 @@ const LongEspresso = () => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
+<<<<<<< HEAD
                 <Text style={styles.es_txt}>{coffeeData.name}</Text>
                 <Text style={styles.price}>{coffeeData.price}$</Text>
+=======
+                <Text style={styles.es_txt}>{coffees[0].name}</Text>
+                <Text style={styles.price}>{coffees[0].price}</Text>
+>>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
                 <View style={styles.milkBg}>
-                    <Text style={styles.milk}>Milk</Text>
+                    <Text style={styles.milk}>Caffeine</Text>
                     <Switch
                         style={styles.swc}
                         trackColor={{ false: "#FFFFFF", true: "#00830D" }}

@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, TextInput, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Modaltest from './Modaltest';
+<<<<<<< HEAD
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase.config'; // Import Firestore db instance
 import { useNavigation } from '@react-navigation/native';
+=======
+import { coffees } from './data';
+>>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
 
 const Macchiato = () => {
     const [isLiked, setIsLiked] = useState(true); // State to track like status
@@ -96,8 +100,13 @@ const Macchiato = () => {
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
+<<<<<<< HEAD
                 <Text style={styles.es_txt}>{coffeeData.name}</Text>
                 <Text style={styles.price}>{coffeeData.price}$</Text>
+=======
+                <Text style={styles.es_txt}>{coffees[5].name}</Text>
+                <Text style={styles.price}>{coffees[5].price}</Text>
+>>>>>>> fcc3f99e05343829dbf3b7f37ac8a2e45bbb4aa9
                 <View style={styles.milkBg}>
                     <Text style={styles.milk}>Milk</Text>
                     <Switch
