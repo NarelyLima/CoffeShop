@@ -21,8 +21,6 @@ import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import Sidebar from './components/Sidebar';
 import CartEmpty from './components/CartEmpty';
-import ChoosePerfil from './ComponentesInitialScreen/ChoosePerfil'
-import LoginScreen from './ComponentesInitialScreen/LoginScreen';
 import SyncData from './SyncDataWithFirestore';
 import Navigator from './navigation/Navigator';
 import EmployeeFlow from './Employee/EmployeeFlow';
@@ -46,7 +44,7 @@ const App = () => {
         <Stack.Screen name="ChoosePerfil" component={ChoosePerfil} options={{ headerShown: false }}/>
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }}/>
+        <Stack.Screen name="Navigator" component={Navigator} options={{ headerShown: false }}/>
         <Stack.Screen name="EmployeeFlow" component={EmployeeFlow} options={{ headerShown: false }}/>
         <Stack.Screen name="AdministratorFlow" component={AdministratorFlow} options={{ headerShown: false }}/>
         <Stack.Screen name="CreateItemMenu" component={CreateItemMenu} />
