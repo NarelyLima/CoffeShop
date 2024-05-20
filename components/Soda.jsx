@@ -1,61 +1,93 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import ModalSoda from './ModalSoda';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase.config'; // Assuming you have configured Firebase in firebase.config
+import ModalSoda from '../components/ModalSoda'
+import { useNavigation } from '@react-navigation/native';
 
-const Soda = ({ menuItems }) => {
-    const [isLiked, setIsLiked] = useState(true); // State to track like status
-    const [isEnabled, setIsEnabled] = useState(false); // State for milk switch
-    const [text, setText] = useState(''); // State for observation text
-    const [quantity, setQuantity] = useState(1); // State for quantity
+const Soda = () => {
+    const [isLiked, setIsLiked] = useState(true);
+    const [isEnabled, setIsEnabled] = useState(false);
+    const [text, setText] = useState('');
+    const [quantity, setQuantity] = useState(1);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedMilk, setSelectedMilk] = useState(null);
+    const [drinkData, setDrinkData] = useState(null);
+    const navigation = useNavigation();
 
+    useEffect(() => {
+        const fetchDrinkData = async () => {
+            try {
+                const docRef = doc(db, 'drinks', '1');
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    setDrinkData(docSnap.data());
+                } else {
+                    console.log('No such document!');
+                }
+            } catch (error) {
+                console.error('Error fetching document:', error);
+            }
+        };
+
+        fetchDrinkData();
+    }, []);
+
+    const toggleLike = () => {
+        setIsLiked(!isLiked);
+    };
     const handleSelectMilk = (milk) => {
         setSelectedMilk(milk);
     };
 
-    const toggleLike = () => {
-        setIsLiked(!isLiked); // Toggle like status
-    };
+    const toggleSwitch = async () => {
+        try {
+            setIsEnabled(previousState => {
+                if (previousState === undefined) {
+                    return false;
+                }
+                return !previousState;
+            });
 
-    const toggleSwitch = () => {
-        // Toggle milk switch
-        setIsEnabled(previousState => {
-            if (previousState === undefined) {
-                // If previousState is undefined, assume it's false
-                return false;
-            }
-            return !previousState;
-        });
-        if (!isEnabled) {
-            setModalVisible(false); // Close the modal if the switch is turned off
+            const docRef = doc(db, 'drinks', '1');
+            await updateDoc(docRef, {
+                takeaway: !isEnabled
+            });
+        } catch (error) {
+            console.error('Error updating document:', error);
         }
     };
 
     const incrementQuantity = () => {
-        setQuantity(prevQuantity => prevQuantity + 1); // Increment quantity
+        setQuantity(prevQuantity => prevQuantity + 1);
     };
 
     const decrementQuantity = () => {
         if (quantity > 1) {
-            setQuantity(prevQuantity => prevQuantity - 1); // Decrement quantity if greater than 1
+            setQuantity(prevQuantity => prevQuantity - 1);
         }
     };
-    
 
+    if (!drinkData) {
+        return (
+            <View style={{flex:1, backgroundColor:'#fff', justifyContent:'center', alignItems:'center'}}>
+        <Image source={{ uri: 'https://64.media.tumblr.com/515bfedfa408cfe6e84ad4e35945f0bd/tumblr_mmgb7h5NXD1qg6rkio1_500.gifv' }} style={{ width: '100%',height: '100%',resizeMode: 'contain',zIndex: 999 }} />
+      </View>
+        );
+    } 
     return (
         <View style={styles.container}>
             <Image style={styles.bgImg} source={require('../assets/soda2.png')} />
-            <TouchableOpacity style={styles.GoBack}>
+            <TouchableOpacity style={styles.GoBack} onPress={()=>navigation.goBack()}>
                 <Image source={require('../assets/chevron.backward.circle.fill.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.love} onPress={toggleLike}>
                 <Image source={isLiked ? require('../assets/heart.circle.fill.png') : require('../assets/heart.circle.png')} />
             </TouchableOpacity>
             <View style={styles.menu}>
-                <Text style={styles.es_txt}>Soda</Text>
-                <Text style={styles.price}>€2.50</Text>
+                <Text style={styles.es_txt}>{drinkData.name}</Text>
+                <Text style={styles.price}>{drinkData.price}$</Text>
                 <View style={styles.milkBg}>
                     <Text style={styles.milk}>Takeaway</Text>
                     <Switch
