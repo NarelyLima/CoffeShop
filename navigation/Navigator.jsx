@@ -25,7 +25,6 @@ const Stack = createStackNavigator();
 
 const Navigator = () => {
   return (
-    <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome_page">
         <Stack.Screen 
           name="Welcome_page" 
@@ -118,7 +117,6 @@ const Navigator = () => {
           options={{ headerShown: false }} // Hide header for LongEspresso screen
         />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 };
 

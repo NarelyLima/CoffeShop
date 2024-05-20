@@ -9,7 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 import { db } from '../firebase.config';
 import { coffees, drinks, pastry } from './data';
 import Sidebar from './Sidebar';
-import { menuItems, drinks, pastry } from './data'; // Importing data from data.js
 
 const Menu = () => {
   const navigation = useNavigation();

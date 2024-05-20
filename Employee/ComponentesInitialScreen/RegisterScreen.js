@@ -11,7 +11,7 @@ const RegisterScreen = ({navigation, route}) => {
 
   const signUpButton = (dataPreview) => {
     if (dataPreview === 'Customer') {
-      navigation.navigate('Menu');  
+      navigation.navigate('Navigator');  
     } else if (dataPreview === 'Employee') {
       navigation.navigate('EmployeeFlow'); 
     } else if (dataPreview === 'Administrator') {
