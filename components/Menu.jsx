@@ -1,65 +1,157 @@
-import React, { useState } from 'react';
+// components/Menu.jsx
+
+import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, Image, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { collection, getDocs } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
+import { db } from '../firebase.config';
+import { coffees, drinks, pastry } from './data';
 import Sidebar from './Sidebar';
+import { menuItems, drinks, pastry } from './data'; // Importing data from data.js
 
 const Menu = () => {
-  // Sample menu items
-  const menuItems = [
-    { id: '1', name: 'Long Espresso', price: '$2.50', image: require('../assets/espresso.png') },
-    { id: '2', name: 'Caffe Latte', price: '$3.50', image: require('../assets/caffe-latte.png') },
-    { id: '3', name: 'Cappuccino', price: '$3.00', image: require('../assets/cappuccino.png') },
-    { id: '4', name: 'Mocha', price: '$4.00', image: require('../assets/mocha.png') },
-    { id: '5', name: 'Americano', price: '$2.50', image: require('../assets/americano.png') },
-    { id: '6', name: 'Macchiato', price: '$3.00', image: require('../assets/macchiato.png') },
-    { id: '7', name: 'Flat White', price: '$4.00', image: require('../assets/flat-white.png') },
-  ];
+  const navigation = useNavigation();
+  const [coffeesData, setCoffeesData] = useState([]);
+  const [drinksData, setDrinksData] = useState([]);
+  const [pastriesData, setPastriesData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const drinks = [
-    { id: '1', name: 'Soda', price: '$2.50', image: require('../assets/soda.png') },
-    { id: '2', name: 'Natural Juice', price: '$3.50', image: require('../assets/juice.png') },
-    { id: '3', name: 'Tea', price: '$3.00', image: require('../assets/tea.png') },
-    { id: '4', name: 'Hot Choco', price: '$4.00', image: require('../assets/mocha.png') },
-    { id: '5', name: 'Milk Shakes', price: '$4.50', image: require('../assets/milkshake.png') },
-  ];
-  
-  const pastry = [
-    { id: '1', name: 'Pastel de Nata', price: '$1.50', image: require('../assets/pastel.png') },
-    { id: '2', name: 'Bolo de Arroz', price: '$2.00', image: require('../assets/arroz.png') },
-    { id: '3', name: 'Pão de Deus', price: '$4.00', image: require('../assets/pao.png') },
-    { id: '4', name: 'Queque', price: '$4.00', image: require('../assets/queque.png') },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const coffeeDocs = await getDocs(collection(db, 'coffees'));
+        const drinkDocs = await getDocs(collection(db, 'drinks'));
+        const pastryDocs = await getDocs(collection(db, 'pastry'));
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item}>
-      <View style={styles.maro}>
-        <Image source={item.image} style={styles.imagine} />
+        setCoffeesData(coffeeDocs.docs.map((doc, index) => ({ id: doc.id, ...doc.data(), image: coffees[index].image })));
+        setDrinksData(drinkDocs.docs.map((doc, index) => ({ id: doc.id, ...doc.data(), image: drinks[index].image })));
+        setPastriesData(pastryDocs.docs.map((doc, index) => ({ id: doc.id, ...doc.data(), image: pastry[index].image })));
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const renderItem = ({ item }) => {
+    return (
+      <TouchableOpacity 
+        style={styles.item} 
+        onPress={() => handleItemPress(item)}
+      >
+        <View style={styles.maro}>
+          <Image source={item.image} style={styles.imagine} />
+        </View>
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.price}>{item.price}$</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const handleItemPress = (item) => {
+    console.log("Item from collection:", item);
+    if (item.name === 'Long Espresso') {
+      navigation.navigate('LongEspresso');
+    }
+    if (item.name === 'Americano') {
+      navigation.navigate('Americano');
+    }
+    if (item.name === 'Bolo de Arroz') {
+      navigation.navigate('Bolo');
+    }
+    if (item.name === 'Caffe Latte') {
+      navigation.navigate('CafeLatte');
+    }
+    if (item.name === 'Cappuccino') {
+      navigation.navigate('Cappuccino');
+    }
+    if (item.name === 'Flat White') {
+      navigation.navigate('FlatWhite');
+    }
+    if (item.name === 'Hot Choco') {
+      navigation.navigate('HotChoco');
+    }
+    if (item.name === 'Macchiato') {
+      navigation.navigate('Macchiato');
+    }
+    if (item.name === 'Milkshake') {
+      navigation.navigate('Milkshake');
+    }
+    if (item.name === 'Mocha') {
+      navigation.navigate('Mocha');
+    }
+    if (item.name === 'Natural Juice') {
+      navigation.navigate('NaturalJuice');
+    }
+    if (item.name === 'Pão de Deus') {
+      navigation.navigate('Pao');
+    }
+    if (item.name === 'Pastel de Nata') {
+      navigation.navigate('Pastel');
+    }
+    if (item.name === 'Queque') {
+      navigation.navigate('Queque');
+    }
+    if (item.name === 'Soda') {
+      navigation.navigate('Soda');
+    }
+    if (item.name === 'Tea') {
+      navigation.navigate('Tea');
+    }
+    
+    
+  };
+
+  if (loading) {
+    return (
+      <View style={{flex:1, backgroundColor:'#fff', justifyContent:'center', alignItems:'center'}}>
+        <Image source={{ uri: 'https://64.media.tumblr.com/515bfedfa408cfe6e84ad4e35945f0bd/tumblr_mmgb7h5NXD1qg6rkio1_500.gifv' }} style={{ width: '100%',height: '100%',resizeMode: 'contain',zIndex: 999 }} />
       </View>
-      <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.price}>{item.price}</Text>
-    </TouchableOpacity>
-  );
-
-  const [text, setText] = useState(''); // State for observation text
+    );
+  }
 
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <TextInput onChangeText={setText} value={text} placeholder="Search" style={styles.search} />
-      <TouchableOpacity style={styles.but} >
+      <TextInput placeholder="Search" style={styles.search} />
+      <TouchableOpacity style={styles.but}>
         <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.butGradient}>
           <Image source={require('../assets/4735061.png')} style={styles.empl} />
           <Text style={styles.but_txt}>Call Employer</Text>
         </LinearGradient>
       </TouchableOpacity>
       <Text style={styles.coffees}>Coffee</Text>
-      <FlatList data={menuItems} renderItem={renderItem} keyExtractor={item => item.id} horizontal={true} showsHorizontalScrollIndicator={false}/>
+      <FlatList 
+        data={coffeesData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      />
       <Text style={styles.drinks}>Drinks</Text>
-      <FlatList data={drinks} renderItem={renderItem} keyExtractor={item => item.id} horizontal={true} style={styles.drinksList} showsHorizontalScrollIndicator={false}/>
+      <FlatList 
+        data={drinksData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        horizontal
+        style={styles.drinksList}
+        showsHorizontalScrollIndicator={false}
+      />
       <Text style={styles.pastry}>Pastry</Text>
-      <FlatList data={pastry} renderItem={renderItem} keyExtractor={item => item.id} horizontal={true} style={styles.pastryList} showsHorizontalScrollIndicator={false}/>
-      <Sidebar style={styles.sidebar}/>
+      <FlatList 
+        data={pastriesData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        horizontal
+        style={styles.pastryList}
+        showsHorizontalScrollIndicator={false}
+      />
+      <Sidebar/>
     </View>
   );
 };
@@ -92,9 +184,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   drinksList: {
-    bottom:40 // Adjust this value as needed
+    bottom: 40
   },
-  pastryList : {
+  pastryList: {
     bottom: 80
   },
   name: {
@@ -147,7 +239,7 @@ const styles = StyleSheet.create({
     bottom: 4
   },
   coffees: {
-    position:'absolute',
+    position: 'absolute',
     fontSize: 30,
     fontWeight: 'bold',
     color: '#593116',
@@ -166,23 +258,23 @@ const styles = StyleSheet.create({
     width: 80,
   },
   drinks: {
-    position:'absolute',
+    position: 'absolute',
     fontSize: 30,
     fontWeight: 'bold',
     color: '#593116',
     left: 20,
-    top:320
+    top: 320
   },
   pastry: {
-    position:'absolute',
+    position: 'absolute',
     fontSize: 30,
     fontWeight: 'bold',
     color: '#593116',
     left: 20,
-    bottom:265
+    bottom: 265
   },
-  sidebar:{
-    position:'absolute'
+  sidebar: {
+    position: 'absolute'
   }
 });
 
