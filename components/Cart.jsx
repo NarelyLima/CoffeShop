@@ -2,8 +2,61 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image,TouchableOpacity,} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Sidebar from './Sidebar';
+import { doc, getDoc, deleteDoc } from 'firebase/firestore';
+import { db } from '../firebase.config';
+import React, { useState, useEffect } from 'react';
 
-const Cart = () => {
+const Cart = ({route}) => {
+
+  const [isVisible, setIsVisible] = useState("");
+  const [orderData, setOrderData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const docRefID = doc(db, 'cart', 'orderId');
+        const docSnapID = await getDoc(docRefID);
+        if (docSnapID.exists()) {
+          setIsVisible(docSnapID.data().isVisible);
+        } else {
+          console.log('No such document!');
+        }
+      } catch (error) {
+        console.error('Error getting document:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      const fetchOrderData = async () => {
+        try {
+          const docRef = doc(db, 'orders', isVisible);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setOrderData(docSnap.data());
+          } else {
+            console.log('No such document!');
+          }
+        } catch (error) {
+          console.error('Error fetching document:', error);
+        }
+      };
+
+      fetchOrderData();
+    }
+  }, [isVisible]);
+
+
+  if (!orderData) {
+    return (
+      <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
+        <Image source={{ uri: 'https://64.media.tumblr.com/515bfedfa408cfe6e84ad4e35945f0bd/tumblr_mmgb7h5NXD1qg6rkio1_500.gifv' }} style={{ width: '100%', height: '100%', resizeMode: 'contain', zIndex: 999 }} />
+      </View>
+    );
+  }
     return (
       <View style={styles.container}>
         <StatusBar style="auto" />
@@ -12,10 +65,10 @@ const Cart = () => {
         <Text style={styles.table}>Table</Text>
         <Text style={styles.num}>16</Text>
         <View style={styles.obj}>
-            <Text style={styles.name}>Long Espresso</Text>
-            <Text style={styles.other}>With Coconut Milk</Text>
-            <Text style={styles.price}>€2.50</Text>
-            <Text style={styles.qnt}>x2</Text>
+          <Text style={styles.name}>{orderData.name}</Text>
+          <Text style={styles.other}>{orderData.milk}</Text>
+          <Text style={styles.price}>{orderData.price}</Text>
+          <Text style={styles.qnt}>x{orderData.quantity}</Text>
             <TouchableOpacity style={styles.edit}>
                 <Image source={require('../assets/edit.png')} style={styles.edit}/>
             </TouchableOpacity>

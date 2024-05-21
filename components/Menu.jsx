@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, Image, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { collection, getDocs } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { db } from '../firebase.config';
 import { coffees, drinks, pastry } from './data';
@@ -36,6 +37,18 @@ const Menu = () => {
 
     fetchData();
   }, []);
+
+  const sendData = () => {
+    setDoc(doc(db, 'settings', 'toggleVisibility'), {
+      isVisible: true,
+    })
+    .then(() => {
+      console.log('Data successfully written!');
+    })
+    .catch((error) => {
+      console.error('Error writing document: ', error);
+    });
+  };
 
   const renderItem = ({ item }) => {
     return (
@@ -118,7 +131,7 @@ const Menu = () => {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <TextInput placeholder="Search" style={styles.search} />
-      <TouchableOpacity style={styles.but}>
+      <TouchableOpacity style={styles.but} onPress={sendData}>
         <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.butGradient}>
           <Image source={require('../assets/4735061.png')} style={styles.empl} />
           <Text style={styles.but_txt}>Call Employer</Text>

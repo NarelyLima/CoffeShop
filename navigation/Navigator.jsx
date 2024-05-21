@@ -33,7 +33,7 @@ const Navigator = () => {
         />
         <Stack.Screen 
           name="Menu" 
-          component={Menu} 
+          component={Menu}
           options={{ headerShown: false }} // Hide header for Menu screen
         />
         <Stack.Screen 

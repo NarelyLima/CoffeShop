@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Switch, Modal, TextInput, Pressable, ActivityIndicator} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Modaltest from './Modaltest';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';   
+import { doc, getDoc, updateDoc, addDoc, collection, setDoc } from 'firebase/firestore';   
 import { db } from '../firebase.config'; 
 import Menu from './Menu';
 import { coffees } from './data';
@@ -16,7 +16,9 @@ const LongEspresso = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedMilk, setSelectedMilk] = useState(null);
     const [coffeeData, setCoffeeData] = useState(null); 
+    const [orderData, setOrderData] = useState(null);
     const navigation = useNavigation();
+    const [clickTime, setClickTime] = useState(null);
 
     useEffect(() => {
         // Fetch "Americano" coffee data from Firestore
@@ -89,7 +91,55 @@ const LongEspresso = () => {
         );
     }
     
+    const addToOrder = async () => {
+        // Adicionar os dados do pedido
+        // const [isVisible, setIsVisible] = useState("");
 
+        const orderData = {
+            name: coffeeData.name,
+            milk: isEnabled ? 'Caffeine' : 'Decaffeinated',
+            typeOfMilk: selectedMilk,
+            observations: text,
+            price: coffeeData.price,
+            quantity: quantity,
+        };
+
+        try {
+            // Save orderData to Firebase
+            const docRef = await addDoc(collection(db, 'orders'), orderData);
+            console.log('Document written with ID: ', docRef.id);
+            await sendData(docRef.id);
+            await handleClick()
+        } catch (error) {
+            console.error('Error adding document: ', error);
+        }
+        // await sendData(docRef.id);
+    };
+
+    const sendData = async (numberId) => {
+        try {
+          await setDoc(doc(db, 'cart', 'orderId'), {
+            isVisible: numberId,
+          });
+          console.log('Data successfully written!');
+        } catch (error) {
+          console.error('Error writing document: ', error);
+        }
+    };
+    const handleClick = async () => {
+        const currentTime = new Date().toISOString();
+        setClickTime(currentTime);
+    
+        // Save the time to Firebase
+        try {
+          await setDoc(doc(db, 'clicks', 'clicksTime'), {
+            clickTime: currentTime,
+          });
+          console.log('Click time saved to Firebase:', currentTime);
+        } catch (error) {
+          console.error('Error saving click time to Firebase:', error);
+        }
+      };
     return (
         <View style={styles.container}>
             <Image style={styles.bgImg} source={require('../assets/coffee-brain-caffeine-neuroscincces.png')} />
@@ -128,7 +178,7 @@ const LongEspresso = () => {
                 <TouchableOpacity style={styles.btPlus} onPress={incrementQuantity}>
                     <Text style={styles.plus}>+</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.but} >
+                <TouchableOpacity style={styles.but} onPress={addToOrder}>
                     <LinearGradient colors={['#C06A30', '#593116']} start={[0, 0]} end={[0, 1]} style={styles.butGradient}>
                         <Text style={styles.but_txt}>Add to Order</Text>
                     </LinearGradient>

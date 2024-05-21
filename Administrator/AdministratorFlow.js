@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import MenuView from './MenuFlow/MenuView';
-import HelpScreen from '../Employee/ComponentesEmployee/HelpScreen';
+import HelpScreen from '../Employee/HelpScreen';
 import SettingsView from './SettingsFlow/SettingsView';
 import { NavigationContainer } from '@react-navigation/native';
 

@@ -33,6 +33,7 @@ import AdministratorFlow from './Administrator/AdministratorFlow';
 import CreateItemMenu from './Administrator/MenuFlow/CreateItemMenu';
 import SettingsLogin from './Administrator/SettingsFlow/SettingsLogin';
 import SettingsEdit from './Administrator/SettingsFlow/SettingsEdit';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -50,6 +51,8 @@ const App = () => {
         <Stack.Screen name="CreateItemMenu" component={CreateItemMenu} />
         <Stack.Screen name="SettingsLogin" component={SettingsLogin} />
         <Stack.Screen name="SettingsEdit" component={SettingsEdit} />
+        <Stack.Screen name="Cart" component={Cart} />
+
      </Stack.Navigator>
     </NavigationContainer>
 

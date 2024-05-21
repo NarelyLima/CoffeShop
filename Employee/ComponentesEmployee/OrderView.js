@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
-import OrderScreen from './OrderScreen';
-import HelpScreen from './HelpScreen';
+import OrderScreen from '../OrderScreen';
+import HelpScreen from '../HelpScreen';
 import FeedbackScreen from './FeedBackScreen';
 import { NavigationContainer } from '@react-navigation/native';
 
