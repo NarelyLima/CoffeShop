@@ -19,7 +19,7 @@ const ChoosePerfil = ({navigation, route}) => {
     navigation.navigate('LoginScreen', { data: dataPreview });
   };
   const withoutAccountView = () => {
-    navigation.navigate('Menu');
+    navigation.navigate('Navigator'); 
   };
   const { data } = route.params;
   
@@ -38,7 +38,7 @@ const ChoosePerfil = ({navigation, route}) => {
           <Text style={styles.buttonText}>I already own an account</Text>
         </TouchableOpacity>
         {data === 'Customer' ? (
-          <TouchableOpacity style={[styles.button, styles.whiteButton]} onPress={() => withoutAccountView}>
+          <TouchableOpacity style={[styles.button, styles.whiteButton]} onPress={withoutAccountView}>
           <Text style={[styles.buttonText, styles.whiteButtonText]}>Order without an account</Text>
         </TouchableOpacity>
         ) : (<Text></Text>)}

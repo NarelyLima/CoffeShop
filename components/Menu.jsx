@@ -1,8 +1,6 @@
-// components/Menu.jsx
-
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, Image, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, Image, ActivityIndicator, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { collection, getDocs } from 'firebase/firestore';
 import { doc, setDoc } from 'firebase/firestore';
@@ -16,6 +14,7 @@ const Menu = () => {
   const [coffeesData, setCoffeesData] = useState([]);
   const [drinksData, setDrinksData] = useState([]);
   const [pastriesData, setPastriesData] = useState([]);
+  const [foodsData, setFoodsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +23,12 @@ const Menu = () => {
         const coffeeDocs = await getDocs(collection(db, 'coffees'));
         const drinkDocs = await getDocs(collection(db, 'drinks'));
         const pastryDocs = await getDocs(collection(db, 'pastry'));
+        
+        const foodsCollection = collection(db, 'foods');
+        const querySnapshot = await getDocs(foodsCollection);
+        const fetchedFoodsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
+        setFoodsData(fetchedFoodsData);
         setCoffeesData(coffeeDocs.docs.map((doc, index) => ({ id: doc.id, ...doc.data(), image: coffees[index].image })));
         setDrinksData(drinkDocs.docs.map((doc, index) => ({ id: doc.id, ...doc.data(), image: drinks[index].image })));
         setPastriesData(pastryDocs.docs.map((doc, index) => ({ id: doc.id, ...doc.data(), image: pastry[index].image })));
@@ -34,7 +38,6 @@ const Menu = () => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -58,6 +61,18 @@ const Menu = () => {
       >
         <View style={styles.maro}>
           <Image source={item.image} style={styles.imagine} />
+        </View>
+        <Text style={styles.name}>{item.name}</Text>
+        <Text style={styles.price}>{item.price}$</Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderItemFood = ({ item }) => {
+    return (
+      <TouchableOpacity style={styles.item}>
+        <View style={styles.maro}>
+          <Image source={{ uri: item.image }} style={styles.imagine} />
         </View>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.price}>{item.price}$</Text>
@@ -115,8 +130,6 @@ const Menu = () => {
     if (item.name === 'Tea') {
       navigation.navigate('Tea');
     }
-    
-    
   };
 
   if (loading) {
@@ -137,32 +150,45 @@ const Menu = () => {
           <Text style={styles.but_txt}>Call Employer</Text>
         </LinearGradient>
       </TouchableOpacity>
-      <Text style={styles.coffees}>Coffee</Text>
-      <FlatList 
-        data={coffeesData}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      />
-      <Text style={styles.drinks}>Drinks</Text>
-      <FlatList 
-        data={drinksData}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        horizontal
-        style={styles.drinksList}
-        showsHorizontalScrollIndicator={false}
-      />
-      <Text style={styles.pastry}>Pastry</Text>
-      <FlatList 
-        data={pastriesData}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        horizontal
-        style={styles.pastryList}
-        showsHorizontalScrollIndicator={false}
-      />
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.containerScroll}>
+          <FlatList
+            data={foodsData}
+            renderItem={renderItemFood}
+            keyExtractor={item => item.id}
+            horizontal
+            style={styles.list}
+            contentContainerStyle={styles.listContent}
+          />
+          <FlatList 
+            data={coffeesData}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.horizontalList}
+            contentContainerStyle={styles.listContent}
+          />
+          <FlatList 
+            data={drinksData}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.horizontalList}
+            contentContainerStyle={styles.listContent}
+          />
+          <FlatList 
+            data={pastriesData}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.horizontalList}
+            contentContainerStyle={styles.listContent}
+          />
+        </View>
+      </ScrollView>   
       <Sidebar/>
     </View>
   );
@@ -182,7 +208,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     backgroundColor: '#fff',
     width: 150,
-    height: 150,
+    height: 200,
     top: 50,
     left: 10,
     borderRadius: 10,
@@ -194,12 +220,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  },
-  drinksList: {
-    bottom: 40
-  },
-  pastryList: {
-    bottom: 80
   },
   name: {
     fontSize: 18,
@@ -250,14 +270,6 @@ const styles = StyleSheet.create({
     width: 40,
     bottom: 4
   },
-  coffees: {
-    position: 'absolute',
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#593116',
-    left: 20,
-    top: 120
-  },
   maro: {
     backgroundColor: '#593116',
     height: 90,
@@ -269,25 +281,40 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
   },
-  drinks: {
-    position: 'absolute',
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#593116',
-    left: 20,
-    top: 320
-  },
-  pastry: {
-    position: 'absolute',
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#593116',
-    left: 20,
-    bottom: 265
-  },
   sidebar: {
     position: 'absolute'
-  }
+  },
+  containerScroll: {
+    flex: 1,
+    width: '100%',
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    alignItems: 'baseline',
+    paddingVertical: 5,
+    bottom: 30,
+  },
+  list: {
+    marginBottom: 10,
+  },
+  listContent: {
+    paddingHorizontal: 10,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginVertical: 10,
+    marginLeft: 10,
+  },
+  horizontalList: {
+    marginBottom: 20,
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 15,
+  },
 });
 
 export default Menu;

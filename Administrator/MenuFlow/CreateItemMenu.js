@@ -7,6 +7,8 @@ import AddNewSortiments from './AddNewSortiments';
 const CreateItemMenu = () => {
     const [modalDrink, setModalDrink] = useState(false);
     const [modalSortiment, setModalSortiment] = useState(false);
+
+
     const openModalDrink = () => {
         setModalDrink(true);
     };

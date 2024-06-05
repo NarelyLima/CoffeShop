@@ -1,8 +1,59 @@
 import React from 'react';
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Image, TextInput} from 'react-native';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebase.config';
+import * as ImagePicker from 'expo-image-picker';
+
+
 
 const AddNewSortiments = ({ isVisible, onClose }) => {
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [takeaway, setTakeaway] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleSave = async () => {
+      try {
+        // Referência para a coleção 'foods' no Firestore
+        const foodsCollection = collection(db, 'foods');
+  
+        // Objeto representando a nova comida
+        const newFood = {
+          name,
+          price: parseFloat(price), // Convertendo para número
+          image: selectedImage ||'../assets/queque.png',
+          takeaway
+        };
+  
+        // Adiciona um novo documento à coleção 'foods' com os dados da nova comida
+        await addDoc(foodsCollection, newFood);
+  
+        console.log('New food document added successfully!');
+        
+        // Limpar os campos após salvar
+        setName('');
+        setPrice('');
+        setSelectedImage(null);
+        setTakeaway(false);
+        onClose();
+      } catch (error) {
+        console.error('Error adding food document:', error);
+      }
+    };
+    const pickImage = async () => {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      if (!result.canceled) {
+        setSelectedImage(result.assets[0].uri);
+      }
+    };
+
     return (
       <Modal
       animationType="slide"
@@ -16,29 +67,44 @@ const AddNewSortiments = ({ isVisible, onClose }) => {
                 <TouchableOpacity style={styles.headerButton} onPress={onClose}>
                 <Text style={styles.headerButtonText}>Close</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.headerButton} onPress={() => alert('Save')}>
+                <TouchableOpacity style={styles.headerButton} onPress={handleSave}>
                 <Text style={styles.headerButtonText}>Save</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.modalContent}>
                 <View style={styles.imageContainer}>
                     {/* Botão "Choose Photo" */}
-                    <TouchableOpacity style={styles.choosePhotoButton} onPress={() => alert('Choose photo pressed')}>
+                    <TouchableOpacity style={styles.choosePhotoButton} onPress={pickImage}>
                     <Text style={styles.choosePhotoButtonText}>Choose Photo</Text>
                     </TouchableOpacity>
 
                     {/* Foto com bordas inferiores arredondadas */}
-                    <Image
-                    source={require('../assets/pastel2.png')}
-                    style={styles.photo}
-                    />
+                    {selectedImage ? (
+                    <Image source={{ uri: selectedImage }} style={styles.photo} />
+                  ) : (
+                    <Image source={require('../assets/americano2.png')} style={styles.photo} />
+                  )}
                 </View>
                 <View style={styles.bottomContainer}>
-            <TextInput
+             <TextInput
             style={styles.textInput}
-            placeholder="Name of the sortiment..."
+            placeholder="Name..."
             placeholderTextColor="#C0C0C0"
+            value={name} 
+            onChangeText={setName}
             />
+            <TextInput 
+            style={styles.textInput}
+            placeholder="Price..."
+            placeholderTextColor="#C0C0C0"
+            value={price}
+             onChangeText={setPrice} />
+            <Text>Takeaway:</Text>
+            <TextInput 
+            style={styles.textInput}
+            placeholder="Takeaway..."
+            placeholderTextColor="#C0C0C0"
+            value={takeaway.toString()} onChangeText={(value) => setTakeaway(value === 'true')} />
             </View>
             </View>
             </View>
