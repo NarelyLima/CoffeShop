@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { db } from '../firebase.config';
 import { coffees, drinks, pastry } from './data';
 import Sidebar from './Sidebar';
+import FoodDetailScreen from './FoodDetailScreen';
 
 const Menu = () => {
   const navigation = useNavigation();
@@ -70,7 +71,7 @@ const Menu = () => {
 
   const renderItemFood = ({ item }) => {
     return (
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity style={styles.item} onPress={() => handleFoodItemPress(item)}>
         <View style={styles.maro}>
           <Image source={{ uri: item.image }} style={styles.imagine} />
         </View>
@@ -79,6 +80,7 @@ const Menu = () => {
       </TouchableOpacity>
     );
   };
+
 
   const handleItemPress = (item) => {
     console.log("Item from collection:", item);
@@ -130,6 +132,11 @@ const Menu = () => {
     if (item.name === 'Tea') {
       navigation.navigate('Tea');
     }
+  };
+
+  const handleFoodItemPress = (item) => {
+    console.log("Item from collection:", item);
+    navigation.navigate('FoodDetailScreen', { foodId: item.id });
   };
 
   if (loading) {

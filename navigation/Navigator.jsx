@@ -20,6 +20,8 @@ import Pastel from '../components/Pastel';
 import Queque from '../components/Queque';
 import Soda from '../components/Soda';
 import Tea from '../components/Tea';
+import FoodDetailScreen from '../components/FoodDetailScreen';
+
 
 const Stack = createStackNavigator();
 
@@ -29,6 +31,11 @@ const Navigator = () => {
         <Stack.Screen 
           name="Welcome_page" 
           component={Welcome_page} 
+          options={{ headerShown: false }} // Hide header for Menu screen
+        />
+        <Stack.Screen 
+          name="FoodDetailScreen" 
+          component={FoodDetailScreen}
           options={{ headerShown: false }} // Hide header for Menu screen
         />
         <Stack.Screen 

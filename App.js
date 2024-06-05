@@ -33,7 +33,6 @@ import AdministratorFlow from './Administrator/AdministratorFlow';
 import CreateItemMenu from './Administrator/MenuFlow/CreateItemMenu';
 import SettingsLogin from './Administrator/SettingsFlow/SettingsLogin';
 import SettingsEdit from './Administrator/SettingsFlow/SettingsEdit';
-
 const Stack = createStackNavigator();
 
 const App = () => {
